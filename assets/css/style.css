@@ -58,5 +58,15 @@
     width: 110px;
     background-color: rgb(91, 56, 148);
     text-align: left;
+    border-radius: 7px;
+}
 
+.result {
+    border-top: solid;
+    font-style: italic;
+    text-align: left;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 25px;
 }
