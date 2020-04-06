@@ -1,4 +1,4 @@
-// suggestion: keep all questions , possible answers, and the correct answer in a single array
+// keep all questions , possible answers, and the correct answer in a single array
 var questions = [
     {
         title: "Commonly used data types DO Not Include:",
@@ -28,55 +28,39 @@ var questions = [
 ]
 
 
+// declare global variables
 var buttonElement = document.getElementById('q3');
 var errorFlag = "";
 var answer = "";
 elementList = ['list-element1','list-element2','list-element3','list-element4'];
 
 
-buttonElement.addEventListener('click', function (event) {
+// function for page layout for start of quiz, event listener on start quiz button then delete start quiz button and delete start quiz phrase if it is the first time through loop 
+var startUpPage = function (i) {
 
-   for ( var i =0; i < 5; i++){
-    
+    buttonElement.addEventListener('click', function (event) {
     if (i === 0) {
-    var el2 = document.getElementById('q2');
-    var el3 = document.getElementById('q3');
-    el2.remove();
-    el3.remove();
+        var el2 = document.getElementById('q2');
+        var el3 = document.getElementById('q3');
+        el2.remove();
+        el3.remove();
     }
+    })
+}
 
+
+// function to populate question from array
+var populateQuestion = function(i) {
     var currentQuestionIndex = i;
     var currentQuestion = questions[currentQuestionIndex];
- 
-    
     document.getElementById('q1').textContent = currentQuestion.title;
     document.getElementById('q1').className = 'question-left-align';
-   
-    // var questionOneAnswers = ['1. string', '2. booleans', '3. alerts', '4. numbers'];
-    for (var j = 0; j < 4; j++ ) {
-        addListElement(currentQuestion.options[j],j);
-        
-    }
+}
 
-
- 
-    listeners(currentQuestion.answer);
-
-
-    // if ( i > 0) {
-    //     var origList = document.getElementById("myUL");        
-    //     origList.innerHTML = "";
-    // }
- 
- 
-   }
-});
-
-
-    
-var addListElement = function(sName,j) {
+// function to create list on first time through for loop, then append items to list for each possible answer
+var addListElement = function(sName,j,i) {
     // var j;
-    if (j===0) {
+    if (i===0) {
     var listAddition = document.createElement("UL");
     listAddition.setAttribute("id", "myUL");
     document.body.appendChild(listAddition);
@@ -85,9 +69,9 @@ var addListElement = function(sName,j) {
 
     j++;
     var element = "list-element"+ j;
-    // window.alert(element);
+    
     var y = document.createElement("LI");
-    // listAddition.setAttribute("id", "parent-list-class");
+    
     document.getElementById("myUL").appendChild(y);
     var button = document.createElement("button");
     button.setAttribute("id",element);
@@ -95,21 +79,21 @@ var addListElement = function(sName,j) {
     y.appendChild(button);
     document.getElementById(element).className = "list-class";
     document.getElementById("myUL").className = "parent-list-class";
-    // debugger;
+    
 }
 
+// function to determine if the answer clicked on is correct
 var listen = function(answer) {
     var answerResult = document.createElement("div");
     document.body.appendChild(answerResult);
     answerResult.setAttribute("id", "answer");
     answerResult.textContent = answer;
-    // document.getElementById('answer').textContent = answer;
     answerResult.className = "result";
-    // debugger;
-    // deleteList();
+   
     
 }
 
+//  function that creates event listeners for each answer option and returns whether answer is correct or not based on which is clicked
 var listeners = function (answer) {
     document.getElementById(elementList[0]).addEventListener('click', function (event) {
         if (answer === 1) {
@@ -146,11 +130,6 @@ var listeners = function (answer) {
 
 }
 
-var deleteList = function () {
-    var deleteListElement = document.getElementById("myUL");
-    deleteListElement.remove();
-
-}
 
 var createQ1Element = function (phrase) {
     var el1 = document.createElement("h1");
@@ -159,3 +138,38 @@ var createQ1Element = function (phrase) {
     document.body.appendChild(listAddition);
     
 }
+
+
+  questions.forEach(function(choice, i) {
+    
+    var currentQuestionIndex = i;
+    var currentQuestion = questions[currentQuestionIndex]; 
+    startUpPage(i);
+
+    populateQuestion(i);
+
+
+    if ( i > 0) {
+        var origList = document.getElementById("myUL");        
+        origList.innerHTML = "";
+    }
+
+ 
+ 
+ 
+
+    
+    for (var j = 0; j < 4; j++ ) {
+        addListElement(currentQuestion.options[j],j,i);
+        
+    }
+
+
+ 
+    listeners(currentQuestion.answer);
+
+
+
+ 
+ 
+   })
