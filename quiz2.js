@@ -1,8 +1,9 @@
-// declare global variables
 let intro = document.querySelector(".question")
 let descr = document.querySelector(".question-2")
+
 let startButton = document.querySelector('.question-3')
 startButton.classList.add(".question-3:hover")
+
 let time = 75
 let countQuestions = 0
 let setQuestion = 0
@@ -47,7 +48,6 @@ var questions = [
 
 let randomIndexQuestions = []
 
-//  generate random sequence of questions
 while(randomIndexQuestions.length < 5) {
     let randomIndex = Math.floor(Math.random()*5)
 
@@ -55,7 +55,7 @@ while(randomIndexQuestions.length < 5) {
         randomIndexQuestions.push(randomIndex)
     }
 
-    
+    // window.alert(randomIndexQuestions)
 }
 
 startButton.addEventListener('click', startQuiz)
@@ -73,20 +73,22 @@ function timer () {
         }, 1000)
     }
 
-// start quiz clears the page
 function startQuiz(){
-
-
+  // intro.remove()
+  // descr.remove()
+  if (countQuestions === 5) {
+  exit()
+  }
   intro.innerHTML = ""
   descr.innerHTML = ""
   if (setQuestion < 5){
       setQuestions()
   } else {
- 
+      // initials page
+      // score to localstorage
   }
 }
 
-// create a random sequence of the available questions
 function setQuestions() {
     questionSelector(questions[randomIndexQuestions[setQuestion]])
     setQuestion++
@@ -96,19 +98,14 @@ function setQuestions() {
     }
 }
 
-// function that displays the selected question and possible answers. 
-// an event listener was created for each possible answer
-// after the user clilcks one of the answer choices, the start function is called
-// there are still remmaining questions. if the questions are all answered, the success 
-// fuunction is called, which ends the game.
 function questionSelector(question){
     countQuestions = countQuestions + 1
     let currentQuestion = randomIndexQuestions[setQuestion]
-    
+    // intro.textContent = currentQuestio
     let q1Element = document.getElementById("q1")
     intro.textContent = questions[currentQuestion].title
 
-   
+    // document.body.appendChild(q1Element)
     startButton.remove()
     
     for (var r = 0; r < questions[0].options.length; r++) {
@@ -134,7 +131,7 @@ function questionSelector(question){
 
         document.getElementById("myUL").className = "parent-list-class";
         document.getElementById(elementList[r]).addEventListener('click', function (event) {})
-       
+        // debugger;
     }
         let elementListItem = "list-element" + questions[currentQuestion].answer
         document.getElementById(element).classList.add("#list-element1:hover")
@@ -144,7 +141,7 @@ function questionSelector(question){
     document.getElementById(elementList[0]).addEventListener("click",function(){
       if (elementListItem === elementList[0]){
           score += 1
-         
+          // success()
           listen("Correct!")
           if (countQuestions === questions.length){
             success()
@@ -153,7 +150,7 @@ function questionSelector(question){
           startQuiz()
           }
       } else {
-        
+          // failure()
           listen("Wrong!")
           time = time -10
           if (countQuestions === questions.length){
@@ -168,7 +165,7 @@ function questionSelector(question){
     document.getElementById(elementList[1]).addEventListener("click",function(){
       if (elementListItem === elementList[1]){
           score += 1
-         
+          // success()
           listen("Correct!")
           if (countQuestions === questions.length){
             success()
@@ -177,7 +174,7 @@ function questionSelector(question){
           startQuiz()
           }
       } else {
-         
+          // failure()
           listen("Wrong!")
           time = time -10
           if (countQuestions === questions.length){
@@ -191,9 +188,9 @@ function questionSelector(question){
 
     document.getElementById(elementList[2]).addEventListener("click",function(){
       if (elementListItem === elementList[2]){
-          
+          // debugger
           score += 1
-         
+          // success()
           listen("Correct!")
           if (countQuestions === questions.length){
             success()
@@ -202,7 +199,7 @@ function questionSelector(question){
           startQuiz()
           }
       } else {
-         
+          // failure()
           listen("Wrong!")
           time = time -10
           if (countQuestions === questions.length){
@@ -217,8 +214,8 @@ function questionSelector(question){
     document.getElementById(elementList[3]).addEventListener("click",function(){
       if (elementListItem === elementList[3]){
           score += 1
+          // success()
          
-          listen("Correct!")
           if (countQuestions === questions.length){
             success()
           }
@@ -226,7 +223,7 @@ function questionSelector(question){
           startQuiz()
           }
       } else {
-          
+          // failure()
           listen("Wrong!")
           time = time -10
           if (countQuestions === questions.length){
@@ -240,7 +237,6 @@ function questionSelector(question){
 
 }
 
-// function that prints out whether the answer was correct or not
 var listen = function(answer) {
   countCorrect = countCorrect+1
   if (countCorrect === 1){
@@ -254,20 +250,21 @@ var listen = function(answer) {
   answerResult.textContent = answer;
   answerResult.className = "result";
 
-
+  // document.getElementById("q3").addEventListener('click', function (event)  {
+      // startUpPage();
+  // })
   
  
   
 }
 
-// function that is called when the quiz is over (either time runs out or the user finished answering all the questions)
 function success() {
   alert("you made it!")
   clearInterval(interval)
     
   let answerElement = document.getElementById("answer")
-//   if (answerElement != null){
-//   answerElement.remove()}
+  if (answerElement != null){
+  answerElement.remove()}
 
   clearInterval(interval)
 
@@ -276,7 +273,7 @@ function success() {
 
   let q1Element = document.getElementById("q1")
  
-
+  // button.setAttribute("id",element);
   q1Element.textContent = "All done!"
 
   let q2Element = document.getElementById("q2")
@@ -292,5 +289,21 @@ function success() {
 
 
   
+  // let formElement = document.createElement("form")
+
+  // document.body.appendChild(formElement)
+
+  // let inputElement = document.createElement("input")
+
+  // document.body.appendChild(inputElement)
+
+  
+  // let initialsInput = inputElement.classList.add("input")
+
+  // alert (initialsInput)
+
+  //setTimeout(popup,5000)
 }
 
+function failure () {
+}
